@@ -22,6 +22,9 @@ class ViewController: UIViewController {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        
+        // Stop the screen from dimming while we are using the app
+        UIApplication.shared.isIdleTimerDisabled = true
     }
     
     let standardConfiguration: ARWorldTrackingConfiguration = {

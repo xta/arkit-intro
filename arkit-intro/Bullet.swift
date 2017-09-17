@@ -23,6 +23,7 @@ class Bullet: SCNNode {
         // add texture
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
+        material.lightingModel = .physicallyBased
         self.geometry?.materials  = [material]
     }
     

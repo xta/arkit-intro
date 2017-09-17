@@ -31,11 +31,13 @@ class ViewController: UIViewController {
         
         setupRecognizers()
         setupUI()
+        setupLights()
     }
     
     let standardConfiguration: ARWorldTrackingConfiguration = {
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
+        configuration.isLightEstimationEnabled = true
         return configuration
     }()
     
@@ -102,6 +104,16 @@ class ViewController: UIViewController {
         button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         button.addTarget(self, action: #selector(self.shootPressed(_:)), for: .touchUpInside)
+    }
+    
+    // MARK: - Lighting
+    
+    func setupLights() {
+        self.sceneView.autoenablesDefaultLighting = false
+        self.sceneView.automaticallyUpdatesLighting = false
+
+        let env = UIImage(named: "spherical")
+        self.sceneView.scene.lightingEnvironment.contents = env
     }
     
     // MARK: - Actions

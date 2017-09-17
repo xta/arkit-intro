@@ -35,6 +35,7 @@ class Cube: SCNNode {
     class func currentMaterial() -> SCNMaterial {
         let material = SCNMaterial()
         material.diffuse.contents = UIColor(white: 1.0, alpha: 1.0)
+        material.lightingModel = .physicallyBased
         return material
     }
     

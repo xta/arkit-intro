@@ -12,14 +12,16 @@ extension ViewController: ARSCNViewDelegate {
     
     // MARK: - ARSCNViewDelegate
     
-    /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
-     
-     return node
-     }
-     */
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        guard let estimate = self.sceneView.session.currentFrame?.lightEstimate else {
+            return
+        }
+        
+        // A value of 1000 is considered neutral, lighting environment intensity normalizes
+        // 1.0 to neutral so we need to scale the ambientIntensity value
+        let intensity = estimate.ambientIntensity / 1000.0
+        self.sceneView.scene.lightingEnvironment.intensity = intensity
+    }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchor = anchor as? ARPlaneAnchor else { return }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD1635D81F6E484800B8B404 /* ViewController+ARSCNViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1635D71F6E484800B8B404 /* ViewController+ARSCNViewDelegate.swift */; };
+		CD1635DA1F6E493B00B8B404 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1635D91F6E493B00B8B404 /* Plane.swift */; };
+		CD1635DD1F6E50AE00B8B404 /* PBRMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD1635DC1F6E50AE00B8B404 /* PBRMaterial.swift */; };
 		CDDF44671F6E3AA700AC10C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDF44661F6E3AA700AC10C3 /* AppDelegate.swift */; };
 		CDDF44691F6E3AA700AC10C3 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = CDDF44681F6E3AA700AC10C3 /* art.scnassets */; };
 		CDDF446B1F6E3AA700AC10C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDF446A1F6E3AA700AC10C3 /* ViewController.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD1635D71F6E484800B8B404 /* ViewController+ARSCNViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+ARSCNViewDelegate.swift"; sourceTree = "<group>"; };
+		CD1635D91F6E493B00B8B404 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		CD1635DC1F6E50AE00B8B404 /* PBRMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PBRMaterial.swift; sourceTree = "<group>"; };
 		CDDF44631F6E3AA700AC10C3 /* arkit-intro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "arkit-intro.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDF44661F6E3AA700AC10C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDDF44681F6E3AA700AC10C3 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -59,6 +65,9 @@
 				CDDF44661F6E3AA700AC10C3 /* AppDelegate.swift */,
 				CDDF44681F6E3AA700AC10C3 /* art.scnassets */,
 				CDDF446A1F6E3AA700AC10C3 /* ViewController.swift */,
+				CD1635D71F6E484800B8B404 /* ViewController+ARSCNViewDelegate.swift */,
+				CD1635D91F6E493B00B8B404 /* Plane.swift */,
+				CD1635DC1F6E50AE00B8B404 /* PBRMaterial.swift */,
 				CDDF446C1F6E3AA700AC10C3 /* Main.storyboard */,
 				CDDF446F1F6E3AA700AC10C3 /* Assets.xcassets */,
 				CDDF44711F6E3AA700AC10C3 /* LaunchScreen.storyboard */,
@@ -140,7 +149,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD1635D81F6E484800B8B404 /* ViewController+ARSCNViewDelegate.swift in Sources */,
+				CD1635DD1F6E50AE00B8B404 /* PBRMaterial.swift in Sources */,
 				CDDF446B1F6E3AA700AC10C3 /* ViewController.swift in Sources */,
+				CD1635DA1F6E493B00B8B404 /* Plane.swift in Sources */,
 				CDDF44671F6E3AA700AC10C3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

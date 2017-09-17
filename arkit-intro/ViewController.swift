@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         UIApplication.shared.isIdleTimerDisabled = true
         
         setupRecognizers()
+        setupUI()
     }
     
     let standardConfiguration: ARWorldTrackingConfiguration = {
@@ -66,6 +67,45 @@ class ViewController: UIViewController {
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    // MARK: - UI
+    
+    let regularFont = "Helvetica-Light"
+    let buttonTextColor = UIColor.white
+    let buttonBGColor = UIColor(red:0.00, green:0.45, blue:0.85, alpha:1.0) // blue #0074D9
+    let buttonBGHighlightColor = UIColor.blue
+    
+    func setupUI() {
+        // shoot button
+        let button = UIButton()
+        let height = view.bounds.height
+        
+        let text = "Shoot"
+        button.setTitle(text, for: [])
+        button.titleLabel?.font = UIFont(name: regularFont, size: height/24)
+        button.setTitleColor(buttonTextColor, for: [])
+        
+        button.backgroundColor = buttonBGColor
+        button.setBackgroundColor(color: buttonBGColor, forState: .normal)
+        button.setBackgroundColor(color: buttonBGHighlightColor, forState: .highlighted)
+        
+        button.titleLabel?.textAlignment = .center
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 10
+        
+        self.view.addSubview(button)
+        
+        let guide = view.safeAreaLayoutGuide
+        button.bottomAnchor.constraint(equalTo: guide.bottomAnchor, constant: -34).isActive = true
+        button.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10).isActive = true
+        button.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2).isActive = true
+        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        button.addTarget(self, action: #selector(self.shootPressed(_:)), for: .touchUpInside)
+    }
+    
+    // MARK: - Actions
+    
     @objc func insertCubeFrom(recognizer: UITapGestureRecognizer) {
         // Take the screen space tap coordinates and pass them to the hitTest method on the ARSCNView instance
         let tapPoint = recognizer.location(in: self.sceneView)
@@ -82,7 +122,6 @@ class ViewController: UIViewController {
         self.insertCube(hitResult: hitResult!)
     }
     
-    
     func insertCube(hitResult: ARHitTestResult) {
         // We insert the geometry slightly above the point the user tapped, so that it drops onto the plane
         // using the physics engine
@@ -93,5 +132,41 @@ class ViewController: UIViewController {
         self.cubes.append(cube)
         self.sceneView.scene.rootNode.addChildNode(cube)
     }
+    
+    // fire bullet in direction camera is facing
+    @objc func shootPressed(_ sender: UIButton) {
+        let bulletsNode = Bullet()
+        
+        let (direction, position) = self.getUserVector()
+        bulletsNode.position = position
+        
+        let bulletDirection = direction
+        bulletsNode.physicsBody?.applyForce(bulletDirection, asImpulse: true)
+        sceneView.scene.rootNode.addChildNode(bulletsNode)
+    }
+    
+    // MARK: - Helpers
+    
+    func getUserVector() -> (SCNVector3, SCNVector3) { // (direction, position)
+        if let frame = self.sceneView.session.currentFrame {
+            let mat = SCNMatrix4(frame.camera.transform) // 4x4 transform matrix describing camera in world space
+            let dir = SCNVector3(-1 * mat.m31, -1 * mat.m32, -1 * mat.m33) // orientation of camera in world space
+            let pos = SCNVector3(mat.m41, mat.m42, mat.m43) // location of camera in world space
+            
+            return (dir, pos)
+        }
+        return (SCNVector3(0, 0, -1), SCNVector3(0, 0, -0.2))
+    }
+    
+}
 
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControlState) {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        UIGraphicsGetCurrentContext()!.setFillColor(color.cgColor)
+        UIGraphicsGetCurrentContext()!.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        self.setBackgroundImage(colorImage, for: forState)
+    }
 }
